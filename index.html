@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras e Inventário Mensal</title>
+  <style>
+    :root {
+      --primary: #245c48;
+      --light: #eaf3ee;
+      --border: #d5ded8;
+      --text: #26332d;
+      --muted: #68756e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f4f6f4;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.45;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 { margin: 0 0 8px; font-size: 25px; }
+    header p { margin: 0; opacity: .9; }
+
+    .summary {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      margin: 16px 0;
+      break-inside: avoid;
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 19px;
+      border-bottom: 2px solid var(--light);
+      padding-bottom: 8px;
+      margin: 0 0 12px;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 16px 0 8px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 5px 0;
+      border-bottom: 1px solid #eef1ee;
+    }
+
+    .item:last-child { border-bottom: none; }
+
+    input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .qty {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .buy { font-weight: 600; }
+    .check { color: #52645a; }
+    .priority { color: #a34c16; font-weight: 600; }
+
+    .notes {
+      width: 100%;
+      min-height: 65px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 7px;
+      padding: 11px 15px;
+      background: var(--primary);
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button.secondary { background: #52645a; }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @media print {
+      body { background: white; padding: 0; max-width: none; }
+      header { background: white; color: black; border: 2px solid #245c48; }
+      .category, .summary { box-shadow: none; }
+      .actions { display: none; }
+      .category { break-inside: avoid; }
+      .notes { min-height: 45px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Lista de Compras e Inventário Mensal</h1>
+  <p>Lista baseada no Padrão Ouro, nos lembretes de compras e no estoque informado.</p>
+</header>
+
+<div class="summary">
+  <strong>Como usar:</strong> marque os itens que pretende comprar ou que já colocou no carrinho.
+  As quantidades são sugestões iniciais; confira o estoque e ajuste conforme o consumo da casa.
+  <p class="small">Data da revisão: 16/10/2026</p>
+</div>
+
+<div class="actions">
+  <button onclick="window.print()">Imprimir / Salvar em PDF</button>
+  <button class="secondary" onclick="document.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = false)">Desmarcar tudo</button>
+</div>
+
+<section class="category">
+  <h2>1. Açougue, carnes e frios</h2>
+
+  <label class="item"><input type="checkbox"><span class="buy">Peito de frango <span class="qty">— sugestão: 3 kg</span></span></label>
+  <label class="item"><input type="checkbox"><span>Hambúrguer <span class="qty">— 1 pacote</span></span></label>
+  <label class="item"><input type="checkbox"><span>Salsicha para cachorro-quente <span class="qty">— 1 pacote</span></span></label>
+  <label class="item"><input type="checkbox"><span>Calabresa <span class="qty">— 1 pacote</span></span></label>
+  <label class="item"><input type="checkbox"><span>Charque <span class="qty">— quantidade conforme receitas</span></span></label>
+  <label class="item"><input type="checkbox"><span>Mussarela <span class="qty">— sugestão: 3 pacotes de 150 g</span></span></label>
+  <label class="item"><input type="checkbox"><span>Mortadela ou presunto <span class="qty">— 1 pacote</span></span></label>
+  <label class="item"><input type="checkbox"><span>Queijo parmesão <span class="qty">— 1 pacote</span></span></label>
+  <label class="item"><input type="checkbox"><span>Bacon <span class="qty">— conferir: há um pacote aberto</span></span></label>
+</section>
+
+<section class="category">
+  <h2>2. Despensa e alimentos</h2>
+
+  <h3>Prioridades e lembretes extras</h3>
+  <label class="item"><input type="checkbox"><span>Pepsi Black <span class="qty">— sugestão: 2 garrafas de 2 L</span></span></label>
+  <label class="item"><input type="checkbox"><span>Páprica defumada</span></label>
+  <label class="item"><input type="checkbox"><span>Alho em pó</span></label>
+  <label class="item"><input type="checkbox"><span>Atum sólido <span class="qty">— há 2 latas fechadas; comprar só se necessário</span></span></label>
+  <label class="item"><input type="checkbox"><span>Extrato de tomate grande</span></label>
+  <label class="item"><input type="checkbox"><span>Pão de hambúrguer</span></label>
+  <label class="item"><input type="checkbox"><span>Macarrão com mais de 10 g de proteína <span class="qty">— conferir informação nutricional</span></span></label>
+
+  <h3>Itens do Padrão Ouro</h3>
+  <label class="item"><input type="checkbox"><span>Ovos <span class="qty">— sugestão: 20 unidades</span></span></label>
+  <label class="item"><input type="checkbox"><span>Óleo <span class="qty">— conferir estoque; há azeite aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Shoyu</span></label>
+  <label class="item"><input type="checkbox"><span>Vinagre</span></label>
+  <label class="item"><input type="checkbox"><span>Dueto (milho e ervilha)</span></label>
+  <label class="item"><input type="checkbox"><span>Milho em conserva <span class="qty">— há milho aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Cuscuz / flocão <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Macarrão comum</span></label>
+  <label class="item"><input type="checkbox"><span>Guardanapos</span></label>
+  <label class="item"><input type="checkbox"><span>Feijão preto <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Feijão macassar</span></label>
+  <label class="item"><input type="checkbox"><span>Feijão verde</span></label>
+  <label class="item"><input type="checkbox"><span>Café Santa Clara <span class="qty">— café moído aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Fermento químico</span></label>
+  <label class="item"><input type="checkbox"><span>Cremogema</span></label>
+  <label class="item"><input type="checkbox"><span>Aveia</span></label>
+  <label class="item"><input type="checkbox"><span>Chá de camomila</span></label>
+  <label class="item"><input type="checkbox"><span>Chá de hortelã</span></label>
+  <label class="item"><input type="checkbox"><span>Açúcar <span class="qty">— há açúcar demerara aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Farinha de trigo <span class="qty">— pacote fechado e estoque adicional informado</span></span></label>
+  <label class="item"><input type="checkbox"><span>Milho para pipoca</span></label>
+  <label class="item"><input type="checkbox"><span>Farinha de mandioca</span></label>
+  <label class="item"><input type="checkbox"><span>Passará <span class="qty">— conferir o nome e o estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Sal</span></label>
+  <label class="item"><input type="checkbox"><span>Creme de leite <span class="qty">— há creme aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Leite em pó <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Leite condensado <span class="qty">— há 2 unidades fechadas; não comprar agora</span></span></label>
+  <label class="item"><input type="checkbox"><span>Atum <span class="qty">— há 2 latas fechadas</span></span></label>
+  <label class="item"><input type="checkbox"><span>Arroz comum <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Arroz arbóreo <span class="qty">— estoque aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Maionese <span class="qty">— embalagem aberta</span></span></label>
+  <label class="item"><input type="checkbox"><span>Pimenta <span class="qty">— conferir tipo e quantidade</span></span></label>
+  <label class="item"><input type="checkbox"><span>Pimenta-do-reino <span class="qty">— conferir estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Margarina <span class="qty">— embalagem aberta</span></span></label>
+  <label class="item"><input type="checkbox"><span>Manteiga <span class="qty">— embalagem aberta</span></span></label>
+  <label class="item"><input type="checkbox"><span>Tapioca <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Requeijão <span class="qty">— embalagem aberta</span></span></label>
+  <label class="item"><input type="checkbox"><span>Azeite <span class="qty">— embalagem aberta</span></span></label>
+  <label class="item"><input type="checkbox"><span>Rap10</span></label>
+  <label class="item"><input type="checkbox"><span>Pão de forma <span class="qty">— estoque informado</span></span></label>
+  <label class="item"><input type="checkbox"><span>Bolo de rolo <span class="qty">— estoque informado</span></span></label>
+</section>
+
+<section class="category">
+  <h2>3. Hortifruti</h2>
+
+  <label class="item"><input type="checkbox"><span>Cebola <span class="qty">— sugestão: 1 kg</span></span></label>
+  <label class="item"><input type="checkbox"><span>Tomate <span class="qty">— sugestão: 1 kg</span></span></label>
+  <label class="item"><input type="checkbox"><span>Pimentão <span class="qty">— sugestão: 2 unidades</span></span></label>
+  <label class="item"><input type="checkbox"><span>Coentro <span class="qty">— 1 molho</span></span></label>
+  <label class="item"><input type="checkbox"><span>Cebolinha <span class="qty">— 1 molho</span></span></label>
+  <label class="item"><input type="checkbox"><span>Limão <span class="qty">— há limões em estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Cenoura <span class="qty">— estoque informado</span></span></label>
+  <label class="item"><input type="checkbox"><span>Batata <span class="qty">— estoque informado</span></span></label>
+  <label class="item"><input type="checkbox"><span>Alho fresco <span class="qty">— conferir estoque</span></span></label>
+</section>
+
+<section class="category">
+  <h2>4. Congelados e vegetais</h2>
+
+  <label class="item"><input type="checkbox"><span>Brócolis congelado <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Legumes variados congelados <span class="qty">— pacote aberto</span></span></label>
+  <label class="item"><input type="checkbox"><span>Polpa de goiaba <span class="qty">— há no congelador</span></span></label>
+  <label class="item"><input type="checkbox"><span>Morango congelado <span class="qty">— há no congelador</span></span></label>
+</section>
+
+<section class="category">
+  <h2>5. Laticínios e complementos</h2>
+
+  <label class="item"><input type="checkbox"><span>Leite em pó <span class="qty">— conferir se o pacote aberto está acabando</span></span></label>
+  <label class="item"><input type="checkbox"><span>Creme de leite <span class="qty">— conferir quantidade restante</span></span></label>
+  <label class="item"><input type="checkbox"><span>Requeijão <span class="qty">— conferir quantidade restante</span></span></label>
+  <label class="item"><input type="checkbox"><span>Margarina / manteiga <span class="qty">— conferir antes de comprar</span></span></label>
+</section>
+
+<section class="category">
+  <h2>6. Higiene pessoal</h2>
+
+  <label class="item"><input type="checkbox"><span>Sabonetes <span class="qty">— há 5 unidades; não comprar agora</span></span></label>
+  <label class="item"><input type="checkbox"><span>Sabão líquido para mãos <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Shampoo <span class="qty">— conferir estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Condicionador <span class="qty">— conferir estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Creme dental <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Fio dental <span class="qty">— conferir estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Lenços umedecidos <span class="qty">— conferir estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Papel higiênico <span class="qty">— há 7 rolos; não comprar agora</span></span></label>
+  <label class="item"><input type="checkbox"><span>Desodorante <span class="qty">— há 1 unidade</span></span></label>
+  <label class="item"><input type="checkbox"><span class="priority">Enxaguante bucal <span class="qty">— está quase acabando; prioridade</span></span></label>
+</section>
+
+<section class="category">
+  <h2>7. Limpeza da casa e roupas</h2>
+
+  <label class="item"><input type="checkbox"><span>Desinfetante perfumado para piso <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Lysoform <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Sabão em pó <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Lava-roupas líquido Becker <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Amaciante <span class="qty">— há em casa</span></span></label>
+  <label class="item"><input type="checkbox"><span>Sacos de lixo pequenos <span class="qty">— conferir estoque</span></span></label>
+  <label class="item"><input type="checkbox"><span>Sacos de lixo grandes <span class="qty">— conferir estoque</span></span></label>
+</section>
+
+<section class="category">
+  <h2>8. Observações e itens para conferir</h2>
+  <p class="small">
+    Estoque fechado informado: 2 latas de atum sólido, 1 pacote de feijão carioca,
+    polpa de goiaba congelada, morango congelado, farinha de trigo e 2 leites condensados.
+  </p>
+  <p class="small">
+    Estoque aberto informado: maionese, pimenta, leite em pó, margarina, manteiga,
+    tapioca, milho, ervilha, requeijão, creme de leite, brócolis, legumes congelados,
+    bacon, café moído, cuscuz, macarrão com mais proteína, pimenta-do-reino, bolo de rolo,
+    limão, cenoura, batata, Rap10, azeite, feijão preto, arroz arbóreo, arroz comum,
+    pão de forma e açúcar demerara.
+  </p>
+  <p><strong>Outras observações:</strong></p>
+  <textarea class="notes" placeholder="Anote marcas, preços, quantidades ou itens que faltaram..."></textarea>
+</section>
+
+<p class="small">
+  Nota: os itens marcados como “conferir estoque” não significam que estejam em falta.
+  A lista é um controle de compras; ajuste as quantidades conforme o consumo mensal.
+</p>
+
+</body>
+</html>
